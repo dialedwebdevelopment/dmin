@@ -14,6 +14,22 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export const SectionHero = () => {
 
+  const titleRef = useRef()
+  const descriptionRef = useRef()
+
+    // GSAP ANIMATIONS
+    useEffect(() => {
+
+      gsap.set(titleRef.current, { opacity: 1 })
+  
+      const titleSplit = new SplitText(titleRef.current, { type: "chars" });
+      gsap.fromTo(titleSplit.chars, { 'will-change': 'opacity, transform', filter: 'blur(8px)', opacity: 0, yPercent: 50 }, { delay: 0.4, opacity: 1, filter: 'blur(0px)', yPercent: 0, stagger: 0.02, duration: 0.75, ease: "power1" });
+  
+      // description text animation
+      gsap.to(descriptionRef.current, { opacity: 1, filter: 'blur(0px)', duration: 1, delay: 0.9 })
+  
+    }, [])
+
   return (
     <section className="hero">
       <div className="hero-background-element-small" />
@@ -24,7 +40,7 @@ export const SectionHero = () => {
             <div className="hero-textbox">
               <div className="hero-titlebox">
                 <div className="hero-titlebox-gradient" />
-                <h1 className="headline white" >Crafting Digital <br /> Masterpieces</h1>
+                <h1 className="headline white" ref={titleRef} >Crafting Digital <br /> Masterpieces</h1>
               </div>
               <p className="big-description grey" >Harnessing Cutting-Edge Visualization Technology to Transform Vision into Tailored Digital Reality</p>
             </div>
